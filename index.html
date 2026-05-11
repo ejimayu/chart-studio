@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chart Studio</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="panel panel-left" aria-label="Chart settings">
+        <div class="brand">
+          <div>
+            <p class="eyebrow">Chart Studio</p>
+            <h1>Presentation-ready charts.</h1>
+          </div>
+          <span class="status-dot" aria-hidden="true"></span>
+        </div>
+
+        <section class="control-group">
+          <label for="csvInput">Data</label>
+          <textarea id="csvInput" spellcheck="false"></textarea>
+          <p class="hint">First column is the label. Second column is the value.</p>
+        </section>
+
+        <section class="control-grid">
+          <label>
+            Chart
+            <select id="chartType">
+              <option value="bar">Bar</option>
+              <option value="line">Line</option>
+            </select>
+          </label>
+          <label>
+            Canvas
+            <select id="canvasRatio">
+              <option value="1920x1080">1920:1080</option>
+              <option value="1200x630">1200:630</option>
+              <option value="1080x1080">1080:1080</option>
+            </select>
+          </label>
+        </section>
+
+        <section class="control-group">
+          <label for="titleInput">Title</label>
+          <input id="titleInput" type="text" />
+        </section>
+
+        <section class="control-group">
+          <label for="subtitleInput">Subtitle</label>
+          <input id="subtitleInput" type="text" />
+        </section>
+
+        <section class="control-group">
+          <label for="sourceInput">Source</label>
+          <input id="sourceInput" type="text" />
+        </section>
+
+        <section class="control-grid">
+          <label>
+            Accent
+            <input id="accentInput" type="color" />
+          </label>
+          <label>
+            Background
+            <input id="backgroundInput" type="color" />
+          </label>
+        </section>
+      </aside>
+
+      <section class="preview-stage" aria-label="Chart preview">
+        <div class="toolbar">
+          <div>
+            <p class="eyebrow">Live preview</p>
+            <h2 id="previewLabel">1920 x 1080 SVG</h2>
+          </div>
+          <div class="toolbar-actions">
+            <button id="downloadPngButton" type="button">PNG</button>
+            <button id="downloadHtmlButton" type="button">HTML</button>
+          </div>
+        </div>
+        <div class="preview-frame">
+          <div id="chartMount" class="chart-mount"></div>
+        </div>
+      </section>
+
+      <aside class="panel panel-right" aria-label="Output">
+        <section class="output-head">
+          <p class="eyebrow">Code output</p>
+          <h2>Reusable HTML</h2>
+          <button id="copyHtmlButton" type="button">Copy</button>
+        </section>
+        <textarea id="htmlOutput" spellcheck="false" readonly></textarea>
+      </aside>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
