@@ -1,38 +1,43 @@
 <!doctype html>
-<html lang="en">
+<html lang="ja">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chart Studio</title>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gen-interface-jp@0.1.5/400.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gen-interface-jp@0.1.5/500.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gen-interface-jp@0.1.5/700.css" />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <main class="app-shell">
-      <aside class="panel panel-left" aria-label="Chart settings">
-        <div class="brand">
-          <div>
-            <p class="eyebrow">Chart Studio</p>
-            <h1>Presentation-ready charts.</h1>
-          </div>
-          <span class="status-dot" aria-hidden="true"></span>
-        </div>
+      <aside class="panel panel-left" aria-label="入力と基本設定">
+        <header class="brand">
+          <p class="eyebrow">Chart Studio</p>
+          <h1>データを、伝わる図版に。</h1>
+          <p class="lead">日本語の資料や発表に、そのまま置けるチャートを整えます。</p>
+        </header>
 
         <section class="control-group">
-          <label for="csvInput">Data</label>
+          <div class="section-head">
+            <label for="csvInput">データ</label>
+            <button id="sampleButton" class="text-button" type="button">サンプル</button>
+          </div>
           <textarea id="csvInput" spellcheck="false"></textarea>
-          <p class="hint">First column is the label. Second column is the value.</p>
+          <p class="hint">1列目をラベル、2列目を値として読み込みます。</p>
         </section>
 
         <section class="control-grid">
           <label>
-            Chart
+            形式
             <select id="chartType">
-              <option value="bar">Bar</option>
-              <option value="line">Line</option>
+              <option value="bar">棒グラフ</option>
+              <option value="line">折れ線</option>
             </select>
           </label>
           <label>
-            Canvas
+            フレーム
             <select id="canvasRatio">
               <option value="1920x1080">1920:1080</option>
               <option value="1200x630">1200:630</option>
@@ -42,40 +47,30 @@
         </section>
 
         <section class="control-group">
-          <label for="titleInput">Title</label>
+          <label for="titleInput">タイトル</label>
           <input id="titleInput" type="text" />
         </section>
 
         <section class="control-group">
-          <label for="subtitleInput">Subtitle</label>
+          <label for="subtitleInput">補足</label>
           <input id="subtitleInput" type="text" />
         </section>
 
         <section class="control-group">
-          <label for="sourceInput">Source</label>
+          <label for="sourceInput">出典</label>
           <input id="sourceInput" type="text" />
-        </section>
-
-        <section class="control-grid">
-          <label>
-            Accent
-            <input id="accentInput" type="color" />
-          </label>
-          <label>
-            Background
-            <input id="backgroundInput" type="color" />
-          </label>
         </section>
       </aside>
 
-      <section class="preview-stage" aria-label="Chart preview">
+      <section class="preview-stage" aria-label="プレビュー">
         <div class="toolbar">
           <div>
-            <p class="eyebrow">Live preview</p>
-            <h2 id="previewLabel">1920 x 1080 SVG</h2>
+            <p class="eyebrow">Canvas</p>
+            <h2 id="previewLabel">1920 x 1080</h2>
           </div>
-          <div class="toolbar-actions">
-            <button id="downloadPngButton" type="button">PNG</button>
+          <div class="toolbar-actions" aria-label="書き出し">
+            <button id="downloadPngButton" class="primary-button" type="button">PNG</button>
+            <button id="downloadSvgButton" type="button">SVG</button>
             <button id="downloadHtmlButton" type="button">HTML</button>
           </div>
         </div>
@@ -84,11 +79,63 @@
         </div>
       </section>
 
-      <aside class="panel panel-right" aria-label="Output">
+      <aside class="panel panel-right" aria-label="デザイン設定と出力">
+        <section class="control-group">
+          <p class="eyebrow">Typography</p>
+          <div class="range-row">
+            <label for="titleSizeInput">タイトル</label>
+            <span id="titleSizeValue">64</span>
+          </div>
+          <input id="titleSizeInput" type="range" min="44" max="84" step="2" />
+
+          <div class="range-row">
+            <label for="subtitleSizeInput">補足</label>
+            <span id="subtitleSizeValue">30</span>
+          </div>
+          <input id="subtitleSizeInput" type="range" min="22" max="42" step="2" />
+
+          <div class="range-row">
+            <label for="labelSizeInput">ラベル</label>
+            <span id="labelSizeValue">28</span>
+          </div>
+          <input id="labelSizeInput" type="range" min="20" max="34" step="2" />
+        </section>
+
+        <section class="control-grid">
+          <label>
+            配置
+            <select id="titleAlignInput">
+              <option value="left">左寄せ</option>
+              <option value="center">中央</option>
+            </select>
+          </label>
+          <label>
+            余白
+            <select id="densityInput">
+              <option value="standard">標準</option>
+              <option value="compact">コンパクト</option>
+              <option value="editorial">エディトリアル</option>
+            </select>
+          </label>
+        </section>
+
+        <section class="control-grid">
+          <label>
+            インク
+            <input id="accentInput" type="color" />
+          </label>
+          <label>
+            紙色
+            <input id="backgroundInput" type="color" />
+          </label>
+        </section>
+
         <section class="output-head">
-          <p class="eyebrow">Code output</p>
-          <h2>Reusable HTML</h2>
-          <button id="copyHtmlButton" type="button">Copy</button>
+          <div>
+            <p class="eyebrow">Markup</p>
+            <h2>単体HTML</h2>
+          </div>
+          <button id="copyHtmlButton" class="text-button" type="button">コピー</button>
         </section>
         <textarea id="htmlOutput" spellcheck="false" readonly></textarea>
       </aside>
